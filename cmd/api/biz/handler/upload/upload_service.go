@@ -4,9 +4,10 @@ package upload
 
 import (
 	"context"
-	"fmt"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
+	"io"
 	"log"
+	"net/http"
 	"os"
 
 	upload "github.com/SIN5t/CancerCellDetectSys/cmd/api/biz/model/upload"
@@ -25,20 +26,45 @@ func UploadFile(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	file, err := c.FormFile("file_content")
-	fileSavePath := "./temp/" + file.Filename // TODO 写入配置文件
-	createDir("./temp/")
+	createDir("./temp/") // TODO 写入配置文件
+	fileSavePath := "./temp/" + file.Filename
 
-	err = c.SaveUploadedFile(file, fileSavePath)
+	// 创建文件
+	output, err := os.Create(fileSavePath)
 	if err != nil {
 		hlog.Error(err.Error())
-		c.JSON(consts.StatusInternalServerError, &upload.UploadResponse{
-			StatusCode: 1,
-			StatusMsg:  "文件上传失败",
-		})
-		return
+		c.JSON(http.StatusInternalServerError, err.Error())
+	}
+	defer output.Close()
+
+	// 分块接收
+	input, err := file.Open()
+	if err != nil {
+		hlog.Error(err.Error())
+		c.JSON(http.StatusInternalServerError, err.Error())
+	}
+	defer input.Close()
+
+	buffer := make([]byte, 1024*1024*5) //一次读取5M
+	for {
+		n, err := input.Read(buffer)
+		if err != nil && err != io.EOF {
+			hlog.Error(err.Error())
+			c.JSON(http.StatusInternalServerError, err.Error())
+		}
+		if n == 0 {
+			break
+		}
+
+		_, err = output.Write(buffer[:n])
+		if err != nil {
+			hlog.Error(err.Error())
+			c.JSON(http.StatusInternalServerError, err.Error())
+			return
+		}
+
 	}
 
-	fmt.Println(req.FileName)
 	c.JSON(consts.StatusOK, &upload.UploadResponse{
 		StatusCode: 0,
 		StatusMsg:  "文件成功上传",

@@ -9,7 +9,10 @@ import (
 
 func main() {
 
-	h := server.Default()
+	h := server.New(
+		server.WithHostPorts(":8888"),
+		server.WithMaxRequestBodySize(1024*1024*1024*5), //最大请求体大小
+	)
 	hlog.SetLevel(hlog.LevelInfo)
 	register(h)
 	h.Spin()
