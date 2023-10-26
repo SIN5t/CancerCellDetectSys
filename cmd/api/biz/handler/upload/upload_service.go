@@ -21,11 +21,14 @@ func UploadFile(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req upload.UploadRequest
 	err = c.BindAndValidate(&req)
+
 	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
+
 	file, err := c.FormFile("file_content")
+
 	createDir("./temp/") // TODO 写入配置文件
 	fileSavePath := "./temp/" + file.Filename
 
