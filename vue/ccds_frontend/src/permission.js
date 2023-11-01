@@ -1,37 +1,4 @@
-/*
- *
- *    ┏┓　　　┏┓
- *  ┏┛┻━━━┛┻┓
- *  ┃　　　　　　　┃
- *  ┃　　　━　　　┃
- *  ┃　＞　　　＜　┃
- *  ┃　　　　　　　┃
- *  ┃...　⌒　...　┃
- *  ┃　　　　　　　┃
- *  ┗━┓　　　┏━┛
- *      ┃　　　┃
- *      ┃　　　┃
- *      ┃　　　┃
- *      ┃　　　┃  神兽保佑
- *      ┃　　　┃  代码无bug
- *      ┃　　　┃
- *      ┃　　　┗━━━┓
- *      ┃　　　　　　　┣┓
- *      ┃　　　　　　　┏┛
- *      ┗┓┓┏━┳┓┏┛
- *        ┃┫┫　┃┫┫
- *        ┗┻┛　┗┻┛
- *
- * @Descripttion:
- * @version:
- * @Date: 2021-04-20 11:06:21
- * @LastEditors: huzhushan@126.com
- * @LastEditTime: 2022-09-27 16:35:06
- * @Author: huzhushan@126.com
- * @HomePage: https://huzhushan.gitee.io/vue3-element-admin
- * @Github: https://github.com/huzhushan/vue3-element-admin
- * @Donate: https://huzhushan.gitee.io/vue3-element-admin/donate/
- */
+
 
 import { ElLoading } from 'element-plus'
 import router from '@/router'
@@ -75,7 +42,7 @@ router.beforeEach(async to => {
       replace: true,
     }
   } else {
-    const { userinfo, getUserinfo } = useAccount()
+    /*const { userinfo, getUserinfo } = useAccount()
     // 获取用户角色信息，根据角色判断权限
     if (!userinfo) {
       try {
@@ -87,12 +54,13 @@ router.beforeEach(async to => {
       }
 
       return to.fullPath
-    }
+    }*/
 
     // 生成菜单（如果你的项目有动态菜单，在此处会添加动态路由）
     const { menus, generateMenus } = useMenus()
     if (menus.length <= 0) {
       try {
+
         await generateMenus()
         return to.fullPath // 添加动态路由后，必须加这一句触发重定向，否则会404
       } catch (err) {

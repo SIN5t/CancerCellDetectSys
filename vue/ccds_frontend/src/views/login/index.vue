@@ -1,18 +1,7 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Date: 2021-04-20 11:06:21
- * @LastEditors: huzhushan@126.com
- * @LastEditTime: 2022-09-27 18:24:27
- * @Author: huzhushan@126.com
- * @HomePage: https://huzhushan.gitee.io/vue3-element-admin
- * @Github: https://github.com/huzhushan/vue3-element-admin
- * @Donate: https://huzhushan.gitee.io/vue3-element-admin/donate/
--->
 <template>
   <div class="login">
     <el-form class="form" :model="model" :rules="rules" ref="loginForm">
-      <h1 class="title">Vue3 Element Admin</h1>
+      <h1 class="title">Cancer Cell Detect System</h1>
       <el-form-item prop="userName">
         <el-input
           class="text"
@@ -117,7 +106,7 @@ export default defineComponent({
         state.loginForm.validate(async valid => {
           if (valid) {
             state.loading = true
-            const { code, data, message } = await Login(state.model)
+            const {code, data, message } = await Login(state.model)
             if (+code === 200) {
               ctx.$message.success({
                 message: ctx.$t('login.loginsuccess'),
