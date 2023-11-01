@@ -24,11 +24,21 @@ func Login(ctx context.Context, c *app.RequestContext) {
 		c.JSON(consts.StatusOK, login.LoginResponse{
 			Code:    consts.StatusOK,
 			Message: "成功登入",
+
+			Data: &login.Data{
+				Token: "123456789",
+			},
+		})
+	} else {
+		c.JSON(consts.StatusOK, login.LoginResponse{
+			Code:    400,
+			Message: "用户名或密码错误",
+			Data:    nil,
+		})
+
 			Data:    &login.Data{
 				//Token: "123456789",
 			},
 		})
-	} else {
-		c.JSON(consts.StatusBadRequest, "用户名或密码错误")
-	}
+	} 
 }

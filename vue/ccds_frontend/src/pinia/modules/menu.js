@@ -18,10 +18,10 @@ import { ref } from 'vue'
 export const useMenus = defineStore('menu', () => {
   const generateUrl = (path, parentPath) => {
     return path.startsWith('/')
-      ? path
-      : path
-      ? `${parentPath}/${path}`
-      : parentPath
+        ? path
+        : path
+            ? `${parentPath}/${path}`
+            : parentPath
   }
 
   const getFilterRoutes = (targetRoutes, ajaxRoutes) => {
@@ -76,11 +76,13 @@ export const useMenus = defineStore('menu', () => {
     menus.value = data
   }
   const generateMenus = async () => {
-    // // 方式一：只有固定菜单
-    // const menus = getFilterMenus(fixedRoutes)
-    // commit('SET_MENUS', menus)
+    // 方式一：只有固定菜单
+    const menus = getFilterMenus(fixedRoutes)
+    //commit('SET_MENUS', menus)
+    //const menus = getFilterMenus(fixedRoutes)
+    setMenus(menus)
 
-    // 方式二：有动态菜单
+  /*  // 方式二：有动态菜单
     // 从后台获取菜单
     const { code, data } = await GetMenus()
 
@@ -88,7 +90,7 @@ export const useMenus = defineStore('menu', () => {
       // 添加路由之前先删除所有动态路由
       asyncRoutes.forEach(item => {
         router.removeRoute(item.name)
-      })
+      }) 
       // 过滤出需要添加的动态路由
       const filterRoutes = getFilterRoutes(asyncRoutes, data)
       filterRoutes.forEach(route => router.addRoute(route))
@@ -96,7 +98,7 @@ export const useMenus = defineStore('menu', () => {
       // 生成菜单
       const menus = getFilterMenus([...fixedRoutes, ...filterRoutes])
       setMenus(menus)
-    }
+    }*/
   }
   return {
     menus,

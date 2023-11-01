@@ -20,7 +20,8 @@ func main() {
 	h.Use(cors.New(cors.Config{
 		AllowOrigins:  []string{"http://localhost:3001"},
 		AllowMethods:  []string{"*"},
-		AllowHeaders:  []string{"Origin", "content-type"},
+		AllowHeaders:  []string{"Origin", "content-type", "authorization"},
+
 		ExposeHeaders: []string{"Content-Length", "content-type"}, // Request headers allowed in the upload_file
 
 		AllowCredentials: true, //// 是否允许在跨域的情况下传递Cookie
