@@ -24,6 +24,7 @@ func Login(ctx context.Context, c *app.RequestContext) {
 		c.JSON(consts.StatusOK, login.LoginResponse{
 			Code:    consts.StatusOK,
 			Message: "成功登入",
+
 			Data: &login.Data{
 				Token: "123456789",
 			},
@@ -34,5 +35,10 @@ func Login(ctx context.Context, c *app.RequestContext) {
 			Message: "用户名或密码错误",
 			Data:    nil,
 		})
-	}
+
+			Data:    &login.Data{
+				//Token: "123456789",
+			},
+		})
+	} 
 }
