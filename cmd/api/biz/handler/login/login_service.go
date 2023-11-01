@@ -35,10 +35,5 @@ func Login(ctx context.Context, c *app.RequestContext) {
 			Message: "用户名或密码错误",
 			Data:    nil,
 		})
-
-			Data:    &login.Data{
-				//Token: "123456789",
-			},
-		})
-	} 
+	}
 }
