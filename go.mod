@@ -5,6 +5,7 @@ go 1.20
 require (
 	github.com/cloudwego/hertz v0.7.1
 	github.com/golang/protobuf v1.5.0
+	github.com/hertz-contrib/cors v0.0.0-20230423034624-2bc83a8400f0
 	google.golang.org/protobuf v1.31.0
 )
 
